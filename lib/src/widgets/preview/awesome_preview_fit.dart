@@ -148,6 +148,26 @@ class PreviewFitWidget extends StatelessWidget {
     required this.maxSize,
   });
 
+  double _calculateOffsetWidth() {
+    if ([Alignment.topLeft, Alignment.centerLeft, Alignment.bottomLeft]
+        .contains(alignment)) {
+      return 0;
+    }
+
+    if ([Alignment.topRight, Alignment.centerRight, Alignment.bottomRight]
+        .contains(alignment)) {
+      return -(maxSize.width - (previewSize.width * scale)) / previewSize.width;
+    }
+
+    if ([Alignment.topCenter, Alignment.center, Alignment.bottomCenter]
+        .contains(alignment)) {
+      return -((maxSize.width - (previewSize.width * scale)) / 2) /
+          previewSize.width;
+    }
+
+    return 0;
+  }
+
   @override
   Widget build(BuildContext context) {
     final transformController = TransformationController()
@@ -163,10 +183,10 @@ class PreviewFitWidget extends StatelessWidget {
           scaleEnabled: false,
           constrained: false,
           panEnabled: false,
-          alignment: FractionalOffset.topLeft,
+          alignment: FractionalOffset(_calculateOffsetWidth(), 0),
           clipBehavior: Clip.antiAlias,
           child: Align(
-            alignment: Alignment.topLeft,
+            alignment: alignment,
             child: SizedBox(
               width: previewSize.width,
               height: previewSize.height,
