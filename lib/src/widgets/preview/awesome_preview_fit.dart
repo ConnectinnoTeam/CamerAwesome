@@ -156,12 +156,12 @@ class PreviewFitWidget extends StatelessWidget {
 
     if ([Alignment.topRight, Alignment.centerRight, Alignment.bottomRight]
         .contains(alignment)) {
-      return -(maxSize.width - (previewSize.width * scale)) / previewSize.width;
+      return (maxSize.width - (previewSize.width * scale)) / previewSize.width;
     }
 
     if ([Alignment.topCenter, Alignment.center, Alignment.bottomCenter]
         .contains(alignment)) {
-      return -((maxSize.width - (previewSize.width * scale)) / 2) /
+      return ((maxSize.width - (previewSize.width * scale)) / 2) /
           previewSize.width;
     }
 
